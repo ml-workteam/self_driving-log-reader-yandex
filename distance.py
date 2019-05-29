@@ -37,7 +37,7 @@ def sortByTS(e):
   return e["ts"]
 
 def getDistance(lon1, lon2, lat1, lat2):
-    #Только для близких расстояний по широте!
+    #Только для близких расстояний!
     KM_IN_GRAD_LON = lat_2_km(lat1)
     KM_IN_GRAD_LAT = 111
     distance = math.sqrt(((lon1-lon2)*KM_IN_GRAD_LON) ** 2 + ((lat1-lat2)*KM_IN_GRAD_LAT) ** 2)
@@ -80,10 +80,11 @@ except:
 # упростим перевод расстояния, примем допущение, что в Лас Вегасе Земля плоская
 # => будем считать Евклидово расстояние (кривизной поверхности пренебрегаем)
 
-print("Is datafile sorted by timestamp? ", isSorted(elements))
-print("Sorting ...")
-elements.sort(key=sortByTS)
-print("Is now sorted? ", isSorted(elements))
+if (isSorted(elements) == False):
+    print("Datafile is not sorted by timestamp!")
+    print("Sorting ...")
+    elements.sort(key=sortByTS)
+    print("Is now sorted? ", isSorted(elements))
 
 
 last_lon = 0
